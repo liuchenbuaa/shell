@@ -16,7 +16,7 @@ except Exception , e:
 	print e;
 
 
-for i in range(0,10):
+for i in range(6,10):
 	for j in range(0,10):
 		for k in range(0,10):
 			for m in range(0,10):
@@ -32,12 +32,15 @@ for i in range(0,10):
 					rpos = html.rfind("]")
 					html1 =  html[lpos:rpos+1]
 					data = json.loads(html1,'gb2312')
-					result =  data[0]["city"]
+					city =  data[0]["city"]
+					prov =  data[0]["prov"]
+					if len(prov) == 0 :
+						prov = city 
 					cursor = db.cursor()
-					cursor.execute("insert into attributions(number, place) values ('"+innerfix +"','"+result+"')")
+					cursor.execute("insert into attributions(number, city, prov) values ('"+innerfix +"','"+city+"','"+prov+"')")
 					db.commit()
 					print "end..." + innerfix
-					time.sleep(0.01)
+					#time.sleep(0.01)
 				except Exception , e:
 					print e
 
